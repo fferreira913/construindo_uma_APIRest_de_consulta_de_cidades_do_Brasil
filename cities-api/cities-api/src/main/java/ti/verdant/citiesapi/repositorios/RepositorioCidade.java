@@ -1,4 +1,7 @@
 package ti.verdant.citiesapi.repositorios;
 
-public interface RepositorioCidade {
+import org.springframework.data.jpa.repository.JpaRepository;
+import ti.verdant.citiesapi.cidades.Cidade;
+
+public interface RepositorioCidade extends JpaRepository<Cidade, Long> {
 }

@@ -1,9 +1,17 @@
 package ti.verdant.citiesapi.cidades;
 
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.TypeDefs;
+import org.springframework.data.geo.Point;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
+@TypeDefs(value = {
+        @TypeDef(name = "point", typeClass = TipoPonto.class)
+})
 public class Cidade {
 
     @Id
@@ -11,10 +19,21 @@ public class Cidade {
     private String nome;
     private Integer uf;
     private Integer ibge;
-    private String lat_lon;
+
+    @Type(type = "point")
+    @Column(name = "lat_lon", updatable = false, insertable = false)
+    private Point lat_lon;
 
     public Cidade(){
 
+    }
+
+    public Cidade(long id, String nome, Integer uf, Integer ibge, Point lat_lon) {
+        this.id = id;
+        this.nome = nome;
+        this.uf = uf;
+        this.ibge = ibge;
+        this.lat_lon = lat_lon;
     }
 
     public long getId() {
@@ -49,11 +68,11 @@ public class Cidade {
         this.ibge = ibge;
     }
 
-    public String getLat_lon() {
+    public Point getLat_lon() {
         return lat_lon;
     }
 
-    public void setLat_lon(String lat_lon) {
+    public void setLat_lon(Point lat_lon) {
         this.lat_lon = lat_lon;
     }
 }

@@ -26,6 +26,7 @@ public class RecursoPais {
 
     @GetMapping
     public Page<Pais> paises(Pageable pageable){
+
         return repositorio.findAll(pageable);
     }
 
