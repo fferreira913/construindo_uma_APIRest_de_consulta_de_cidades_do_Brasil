@@ -3,6 +3,7 @@ package ti.verdant.citiesapi.cidades.distancias;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,24 +23,31 @@ public class RecursoDistancia {
     }
 
     @GetMapping("/by-points")
-    public Double byPoints(@RequestParam(name = "from") final Long cidade1,
-                           @RequestParam(name = "to") final Long cidade2) {
+    public ResponseEntity byPoints(@RequestParam(name = "from") final Long cidade1,
+                                   @RequestParam(name = "to") final Long cidade2) {
         log.info("byPoints");
-        return distanciaServico.distanceByPointsInMiles(cidade1, cidade2);
+
+        return ResponseEntity.ok().body(
+                distanciaServico.distanceByPointsInMiles(cidade1, cidade2)
+        );
     }
 
     @GetMapping("/by-cube")
-    public Double byCube(@RequestParam(name = "from") final Long cidade1,
+    public ResponseEntity byCube(@RequestParam(name = "from") final Long cidade1,
                          @RequestParam(name = "to") final Long cidade2) {
         log.info("byCube");
-        return distanciaServico.distanceByCubeInMeters(cidade1, cidade2);
+        return ResponseEntity.ok().body(
+                distanciaServico.distanceByCubeInMeters(cidade1, cidade2)
+        );
     }
 
     @GetMapping("/by-math")
-    public Double byMath(@RequestParam(name = "from") final Long cidade1,
+    public ResponseEntity byMath(@RequestParam(name = "from") final Long cidade1,
                          @RequestParam(name = "to") final Long cidade2,
                          @RequestParam final RaioDaTerra raioDaTerra) {
         log.info("byMath");
-        return distanciaServico.distanceUsingMath(cidade1, cidade2, raioDaTerra);
+        return ResponseEntity.ok().body(
+                distanciaServico.distanceUsingMath(cidade1, cidade2, raioDaTerra)
+        );
     }
 }
