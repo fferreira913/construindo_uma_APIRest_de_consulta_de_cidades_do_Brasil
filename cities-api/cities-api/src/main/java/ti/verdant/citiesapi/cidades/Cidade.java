@@ -20,6 +20,9 @@ public class Cidade {
     private Integer uf;
     private Integer ibge;
 
+    @Column(name = "lat_lon")
+    private String geolocalizacao;
+
     @Type(type = "point")
     @Column(name = "lat_lon", updatable = false, insertable = false)
     private Point lat_lon;
@@ -28,11 +31,12 @@ public class Cidade {
 
     }
 
-    public Cidade(long id, String nome, Integer uf, Integer ibge, Point lat_lon) {
+    public Cidade(long id, String nome, Integer uf, Integer ibge, String geolocalizacao, Point lat_lon) {
         this.id = id;
         this.nome = nome;
         this.uf = uf;
         this.ibge = ibge;
+        this.geolocalizacao = geolocalizacao;
         this.lat_lon = lat_lon;
     }
 
@@ -74,5 +78,13 @@ public class Cidade {
 
     public void setLat_lon(Point lat_lon) {
         this.lat_lon = lat_lon;
+    }
+
+    public String getGeolocalizacao() {
+        return geolocalizacao;
+    }
+
+    public void setGeolocalizacao(String geolocalizacao) {
+        this.geolocalizacao = geolocalizacao;
     }
 }
